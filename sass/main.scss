@@ -2,6 +2,9 @@
 
 // 1. Configuration and helpers
 @import
+  'abstracts/bootstrap-functions',
+  'abstracts/bootstrap-variables',
+  'abstracts/bootstrap-mixins',
   'abstracts/variables',
   'abstracts/functions',
   'abstracts/mixins';
@@ -9,6 +12,7 @@
 // 2. Vendors
 @import
   'vendor/normalize';
+
 
 // 3. Base stuff
 @import
@@ -24,7 +28,8 @@
 
 // 5. Components
 @import
-  'components/button';
+  'components/button',
+  'components/calendar';
 
 // 6. Page-specific styles
 @import
