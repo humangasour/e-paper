@@ -597,4 +597,33 @@ body {
   width: 1px;
 }
 
+/* line 5, ../sass/pages/_home.scss */
+.article-grid {
+  display: grid;
+  grid-gap: 2rem;
+}
+@media (min-width: 768px) {
+  /* line 5, ../sass/pages/_home.scss */
+  .article-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 992px) {
+  /* line 5, ../sass/pages/_home.scss */
+  .article-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+/* line 17, ../sass/pages/_home.scss */
+.article-grid__item {
+  width: 100%;
+  border: 1px solid;
+}
+
+/* line 6, ../sass/themes/_default.scss */
+.container {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
 /*# sourceMappingURL=main.css.map */
