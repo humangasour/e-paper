@@ -683,6 +683,51 @@ body {
   transition: transform .5s ease-in,  opacity .3s ease-in;
 }
 
+/* line 5, ../sass/pages/_article.scss */
+.article-container {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+}
+/* line 11, ../sass/pages/_article.scss */
+.article-container div {
+  border: 1px solid;
+}
+/* line 15, ../sass/pages/_article.scss */
+.article-container p {
+  margin-top: 1rem;
+  text-align: center;
+}
+/* line 20, ../sass/pages/_article.scss */
+.article-container .paginate {
+  grid-column: 4/13;
+}
+/* line 24, ../sass/pages/_article.scss */
+.article-container .pages-bar {
+  grid-column: 1/4;
+  grid-row: 1/12;
+  text-align: center;
+  padding-top: 1rem;
+}
+/* line 30, ../sass/pages/_article.scss */
+.article-container .pages-bar img {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+}
+/* line 38, ../sass/pages/_article.scss */
+.article-container .main-article {
+  grid-column: 4/13;
+  grid-row: 2/12;
+  text-align: center;
+}
+/* line 43, ../sass/pages/_article.scss */
+.article-container .main-article img {
+  width: 100%;
+}
+
 /* line 6, ../sass/themes/_default.scss */
 body {
   background-color: #eaeaea;
@@ -695,18 +740,19 @@ body {
 }
 
 /* line 15, ../sass/themes/_default.scss */
-.articles-container {
+.articles-container,
+.article-container {
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
 
-/* line 20, ../sass/themes/_default.scss */
+/* line 21, ../sass/themes/_default.scss */
 nav.bg-light {
   background-color: white !important;
   border-bottom: 1px solid;
 }
 
-/* line 25, ../sass/themes/_default.scss */
+/* line 26, ../sass/themes/_default.scss */
 .navbar-collapse {
   justify-content: space-between;
 }
