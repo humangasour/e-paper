@@ -3,7 +3,20 @@
 // default one.
 // -----------------------------------------------------------------------------
 
+body {
+	background: #eaeaea;
+}
+
 .container {
-	margin-top: 2rem;
-	margin-bottom: 2rem;
+	background: white;
+}
+
+.articles-container {
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+
+nav.bg-light {
+	background-color: white!important;
+	border-bottom: 1px solid;
 }

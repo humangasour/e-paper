@@ -15,7 +15,56 @@
 	}
 
 	&__item {
-		width: 100%;
 		border: 1px solid;
+		cursor: pointer;
+		position: relative;
+
+		img {
+			width: 100%;
+		}
+
+		&--overlay {
+			position: absolute;
+	    top: 0;
+	    bottom: 0;
+	    right: 0;
+	    left: 0;
+	    background: rgba(0, 0, 0, 0.6);
+	    opacity: 0;
+	    transition: opacity .3s ease-in;
+
+	    &:hover {
+	    	opacity: 1;
+	    	.overlay-content {
+					opacity: 1;
+					p {
+		    		opacity: 1;
+		    		transform: translateY(-5px);
+		    	}
+	    	} //overlay-content
+	    } //overlay-hover
+		} //overlay 
 	}
-}
+
+	.overlay-content {
+		color: white;
+    position: absolute;
+    display: inline-block;
+    top: 47%;
+    font-size: 3rem;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transition: opacity .2s ease-in;
+    transition-delay: 0.2s;
+
+    p {
+    	font-family: 'Raleway', sans-serif;
+    	font-size: 1.3rem;
+    	transform: translateY(-50px);
+    	opacity: 0;
+    	transition: transform .5s ease-in, 
+    							opacity .3s ease-in;
+    }
+	}
+} //aticle-grid end

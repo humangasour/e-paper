@@ -3,13 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title></title>
+    <title>e-paper</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="manifest" href="site.webmanifest">
     <link rel="apple-touch-icon" href="icon.png">
     <!-- Place favicon.ico in the root directory -->
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700" rel="stylesheet">
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
@@ -21,35 +23,87 @@
     <![endif]-->
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">E-Paper</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-          <a class="nav-item nav-link" href="#">Features</a>
-          <a class="nav-item nav-link" href="#">Pricing</a>
-          <a class="nav-item nav-link disabled" href="#">Disabled</a>
+    <div class="container nav-container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">E-Paper</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="#">Features</a>
+            <a class="nav-item nav-link" href="#">Pricing</a>
+            <a class="nav-item nav-link disabled" href="#">Disabled</a>
+          </div>
         </div>
-      </div>
-    </nav> <!-- /Navbar -->
+      </nav> 
+    </div><!-- /Navbar -->
 
     <!-- Content -->
-    <div class="container">
-      <div class="article-grid">
-        <img class="article-grid__item "src="img/page.png">
-        <img class="article-grid__item "src="img/page.png">
-        <img class="article-grid__item "src="img/page.png">
-        <img class="article-grid__item "src="img/page.png">
-        <img class="article-grid__item "src="img/page.png">
-      </div> 
+    <div class="container articles-container">
+      <div class="article-grid"> <!-- article grid -->
+        <div class="article-grid__item"> <!-- article -->
+          <img alt="newspaper-article" src="img/page.png">
+          <div class="article-grid__item--overlay">
+            <div class="overlay-content">
+              <i class="fas fa-newspaper"></i>
+              <p>Start Reading</p>
+            </div>
+          </div>
+        </div> <!-- /article -->
+        <div class="article-grid__item"> <!-- article -->
+          <img alt="newspaper-article" src="img/page.png">
+          <div class="article-grid__item--overlay">
+            <div class="overlay-content">
+              <i class="fas fa-newspaper"></i>
+              <p>Start Reading</p>
+            </div>
+          </div>
+        </div> <!-- /article -->
+        <div class="article-grid__item"> <!-- article -->
+          <img alt="newspaper-article" src="img/page.png">
+          <div class="article-grid__item--overlay">
+            <div class="overlay-content">
+              <i class="fas fa-newspaper"></i>
+              <p>Start Reading</p>
+            </div>
+          </div>
+        </div> <!-- /article -->
+        <div class="article-grid__item"> <!-- article -->
+          <img alt="newspaper-article" src="img/page.png">
+          <div class="article-grid__item--overlay">
+            <div class="overlay-content">
+              <i class="fas fa-newspaper"></i>
+              <p>Start Reading</p>
+            </div>
+          </div>
+        </div> <!-- /article -->
+        <div class="article-grid__item"> <!-- article -->
+          <img alt="newspaper-article" src="img/page.png">
+          <div class="article-grid__item--overlay">
+            <div class="overlay-content">
+              <i class="fas fa-newspaper"></i>
+              <p>Start Reading</p>
+            </div>
+          </div>
+        </div> <!-- /article -->
+        <div class="article-grid__item"> <!-- article -->
+          <img alt="newspaper-article" src="img/page.png">
+          <div class="article-grid__item--overlay">
+            <div class="overlay-content">
+              <i class="fas fa-newspaper"></i>
+              <p>Start Reading</p>
+            </div>
+          </div>
+        </div> <!-- /article -->
+      </div> <!-- /article grid -->
     </div><!-- /Content -->
 
     <script src="js/vendor/modernizr-3.5.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+    <script type="text/javascript" src="js/vendor/fontawesome-all.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
 
