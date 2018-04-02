@@ -648,7 +648,20 @@ body {
   opacity: 1;
   transform: translateY(-5px);
 }
-/* line 49, ../sass/pages/_home.scss */
+/* line 48, ../sass/pages/_home.scss */
+.article-grid__item__footer {
+  position: absolute;
+  bottom: 0;
+  background: rgba(243, 22, 43, 0.81);
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+/* line 56, ../sass/pages/_home.scss */
+.article-grid__item__footer p {
+  margin-top: 1rem;
+}
+/* line 63, ../sass/pages/_home.scss */
 .article-grid .overlay-content {
   color: white;
   position: absolute;
@@ -661,7 +674,7 @@ body {
   transition: opacity .2s ease-in;
   transition-delay: 0.2s;
 }
-/* line 61, ../sass/pages/_home.scss */
+/* line 75, ../sass/pages/_home.scss */
 .article-grid .overlay-content p {
   font-family: 'Raleway', sans-serif;
   font-size: 1.3rem;
@@ -672,24 +685,30 @@ body {
 
 /* line 6, ../sass/themes/_default.scss */
 body {
-  background: #eaeaea;
+  background-color: #eaeaea;
+  font-family: 'Raleway', sans-serif;
 }
 
-/* line 10, ../sass/themes/_default.scss */
+/* line 11, ../sass/themes/_default.scss */
 .container {
   background: white;
 }
 
-/* line 14, ../sass/themes/_default.scss */
+/* line 15, ../sass/themes/_default.scss */
 .articles-container {
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
 
-/* line 19, ../sass/themes/_default.scss */
+/* line 20, ../sass/themes/_default.scss */
 nav.bg-light {
   background-color: white !important;
   border-bottom: 1px solid;
+}
+
+/* line 25, ../sass/themes/_default.scss */
+.navbar-collapse {
+  justify-content: space-between;
 }
 
 /*# sourceMappingURL=main.css.map */

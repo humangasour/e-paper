@@ -41,10 +41,24 @@
 		    		opacity: 1;
 		    		transform: translateY(-5px);
 		    	}
-	    	} //overlay-content
+	    	} 
 	    } //overlay-hover
 		} //overlay 
-	}
+
+		&__footer {
+			position: absolute;
+			bottom: 0;
+			background: rgba(243, 22, 43, 0.81);
+			width: 100%;
+			text-align: center;
+			color: white;
+
+			p {
+				margin-top: 1rem;
+			}
+		}
+
+	} //article 
 
 	.overlay-content {
 		color: white;
@@ -66,5 +80,5 @@
     	transition: transform .5s ease-in, 
     							opacity .3s ease-in;
     }
-	}
-} //aticle-grid end
+	} //overlay-content
+} //aticle-grid 

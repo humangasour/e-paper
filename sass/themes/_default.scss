@@ -4,7 +4,8 @@
 // -----------------------------------------------------------------------------
 
 body {
-	background: #eaeaea;
+	background-color: #eaeaea;
+	font-family: 'Raleway', sans-serif;
 }
 
 .container {
@@ -19,4 +20,8 @@ body {
 nav.bg-light {
 	background-color: white!important;
 	border-bottom: 1px solid;
+}
+
+.navbar-collapse {
+	justify-content: space-between;
 }
