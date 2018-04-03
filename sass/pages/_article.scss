@@ -6,7 +6,11 @@
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(12, 1fr);
+  grid-template-rows: repeat(18, 70px);
+
+  @include media-breakpoint-down(sm) {
+  	grid-template-rows: repeat(12, 70px);
+  }
 
 	div {
 		border: 1px solid;
@@ -18,27 +22,63 @@
 	}
 
 	.paginate {
-		grid-column: 4/13;
+		grid-column: 1/13;
+
+		@include media-breakpoint-up(md) {
+			grid-column: 4/-1;
+		}
 	}
 
 	.pages-bar {
-		grid-column: 1/4;
-		grid-row: 1/12;
-		text-align: center;
-		padding-top: 1rem;
+		grid-column: 1/-1;
+    grid-row: 16/-1;
+
+    @include media-breakpoint-down(sm) {
+    	grid-row: 9/12;
+    }
+
+		@include media-breakpoint-down(md) {
+			display: flex;
+	    flex-direction: row;
+	    overflow-x: scroll;
+		}
+
+		@include media-breakpoint-up(md) {
+			text-align: center;
+			padding-top: 1rem;
+			overflow-y: scroll;
+			grid-column: 1/4;
+			grid-row: 1/-1;
+		}
 
 		img {
-			width: 90%;
-			margin-left: auto;
-			margin-right: auto;
-			margin-bottom: 1rem;
+			@include media-breakpoint-down(md) {
+	    	max-width: 150px;
+    		margin: 0 0.5rem;
+    	}
+
+			@include media-breakpoint-up(md) {
+				width: 90%;
+				margin-left: auto;
+				margin-right: auto;
+				margin-bottom: 1rem;
+			}
 		}
 	}
 
 	.main-article {
-		grid-column: 4/13;
-		grid-row: 2/12;
 		text-align: center;
+		grid-column: 1/-1;
+		grid-row: 2/16;
+
+		@include media-breakpoint-down(sm) {
+			grid-row: 2/9;
+		}
+		
+		@include media-breakpoint-up(md) {
+			grid-column: 4/-1;
+			grid-row: 2/-1;
+		}
 
 		img {
 			width: 100%;
