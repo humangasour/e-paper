@@ -1,93 +1,152 @@
 $(document).ready(function () {
-	//the main article window
-	const $pageContainer = $('#main-article');
+
+  'use strict';
+
+	// capture the main article photo
+	const $image = $('#photo');
+	var $dataX = $('#dataX');
+  var $dataY = $('#dataY');
+  var $dataHeight = $('#dataHeight');
+  var $dataWidth = $('#dataWidth');
+  var $dataRotate = $('#dataRotate');
+  var $dataScaleX = $('#dataScaleX');
+  var $dataScaleY = $('#dataScaleY');
+  var options = {
+        viewMode: 2,
+        modal: true,
+        crop: function (e) {
+          $dataX.val(Math.round(e.detail.x));
+          $dataY.val(Math.round(e.detail.y));
+          $dataHeight.val(Math.round(e.detail.height));
+          $dataWidth.val(Math.round(e.detail.width));
+          $dataRotate.val(e.detail.rotate);
+          $dataScaleX.val(e.detail.scaleX);
+          $dataScaleY.val(e.detail.scaleY);
+        }
+      };
+
+	var originalImageURL = $image.attr('src');
+	var uploadedImageName = 'cropped.jpg';
+	var uploadedImageType = 'image/jpeg';
+	var uploadedImageURL;
 
 
-	function prepareForClipping(){
-	  isClipping = true;
-	  if(clippingObj) {
-	    clippingObj.setOptions({ show: true, persistent: true, enable:true });
-	  }
-	}
+	$('#crop-btn').on('click', () => {
+		//intilize the cropper
+	  $image.on({
+	    ready: function (e) {
+	      console.log(e.type);
+	    },
+	    cropstart: function (e) {
+	      console.log(e.type, e.detail.action);
+	    },
+	    cropmove: function (e) {
+	      console.log(e.type, e.detail.action);
+	    },
+	    cropend: function (e) {
+	      console.log(e.type, e.detail.action);
+	    },
+	    crop: function (e) {
+	      console.log(e.type);
+	    },
+	    zoom: function (e) {
+	      console.log(e.type, e.detail.ratio);
+	    }
+	  }).cropper(options);
+	}); 
 
-	function clipSelectionChange(e){
-		$('#clip-options').remove();
-	  var pageOffset = $pageContainer.offset();
-	  var clipSelection = clippingObj.getSelection();
-		var firstTime = (e ? e.firstTime : false);
+	//listen for clicks on buttons
+	 $('.paginate').on('click', '[data-method]', function () {
+    var $this = $(this);
+    var data = $this.data();
+    var cropper = $image.data('cropper');
+    var cropped;
+    var $target;
+    var result;
+    console.log('target =', data.target);
+    console.log('method =', data.method);
+    console.log('data =', data);
+    console.log('this = ', $this);
 
-	  if(clipSelection.width < 10){
-	    return;
-	  }
-	  var top = pageOffset.top + clipSelection.y1 - (firstTime ? 110 :56);
-	  var leftM = pageOffset.left + clipSelection.x1 + clipSelection.width/2 - 111;
-	  $('body').append('<div style="top: '+top+'px; left: '+leftM+'px; display: block; opacity: 1;" id="clip-options" class="popover fade top in" role="tooltip">'+
-	    '<div style="left: 50%;" class="arrow"></div><h3 style="display: none;" class="popover-title"></h3><div class="popover-content">'+
-	    (firstTime ? '<p>Re-size and place this box where you want to clip</p>' : '')+
-	    (firstTime ? '' : '<button id="clip-options-save" class="btn btn-primary">Clip &amp; Share</button>') +
-	    '<button id="clip-options-cancel" class="btn btn-link"><i class="fa fa-times"></i> Cancel</button></div></div>');
-	  $('#clip-options-cancel').click(cancelClipping);
-	  $('#clip-options-save').click(saveClipping);
-	  preview(document.getElementById('photo'), clipSelection);
-	  
-	}
 
-	function saveClipping() {
-		$('#clip-options').remove();
-	  var selection = clippingObj.getSelection();
-	  if((selection.width < 50) || (selection.height) < 50){
-	    alert('Very small clip. Please increase the size');
-	    return;
-	  }
-	}
+    if(cropper && data.method) {
+    	 data = $.extend({}, data);
+    	 console.log('newdata =', data);
 
-	$('<div><img src="img/page.png" style="position: relative;" /><div>')
-    .css({
-        float: 'left',
-        position: 'relative',
-        overflow: 'hidden',
-        top: '-100%',
-        left: '-30%',
-        width: '100px',
-        height: '100px'
-    })
-    .insertAfter($('#photo'));
+    	 if (typeof data.target !== 'undefined') {
+        $target = $(data.target);
 
-	function cancelClipping(){
-	  if(clippingObj) {
-	    clippingObj.cancelSelection();  
-	  } 
-	  $('#clip-options').remove();
-	  isClipping = false;
-	  if(clippingObj) {
-	    clippingObj.setOptions({ persistent: false });
-	    clippingObj.update();
-	  }
-//	  $('#page-level-bar').removeClass('flip');
-	}
+        if (typeof data.option === 'undefined') {
+          try {
+            data.option = JSON.parse($target.val());
+            console.log('data-option', data.option);
+          } catch (e) {
+            console.log(e.message);
+          }
+        }
+      }
 
-  const clippingObj = $('img#photo').imgAreaSelect({
-    'handles': true,
-    'parent':'body',
-    'instance':true,
-    'fadeSpeed':300,
-    'keys': true,
-    'onSelectStart': prepareForClipping,
-    'onSelectChange': clipSelectionChange,
-    'aspectRatio': '1:1'
-  });
+      cropped = cropper.cropped;
 
-  function preview(img, selection) {
-	  var scaleX = 100 / (selection.width || 1);
-	  var scaleY = 100 / (selection.height || 1);
+      switch (data.method) {
+        case 'rotate':
+          if (cropped && options.viewMode > 0) {
+            $image.cropper('clear');
+          }
 
-	  $('#photo + div > img').css({
-	    width: Math.round(scaleX * 400) + 'px',
-	    height: Math.round(scaleY * 300) + 'px',
-	    marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
-	    marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
-	  });
-	}
+          break;
 
+        case 'getCroppedCanvas':
+          if (uploadedImageType === 'image/jpeg') {
+            if (!data.option) {
+              data.option = {};
+            }
+
+            data.option.fillColor = '#fff';
+          }
+
+          break;
+      }
+
+
+      result = $image.cropper(data.method, data.option, data.secondOption);
+    }
+
+    switch (data.method) {
+        case 'rotate':
+          if (cropped && options.viewMode > 0) {
+            $image.cropper('crop');
+          }
+
+          break;
+
+        case 'scaleX':
+        case 'scaleY':
+          $(this).data('option', -data.option);
+          break;
+
+        case 'getCroppedCanvas':
+          if (result) {
+            // Bootstrap's Modal
+            $('.pages-bar').html(result);
+
+            if (!$download.hasClass('disabled')) {
+              download.download = uploadedImageName;
+              $download.attr('href', result.toDataURL(uploadedImageType));
+            }
+          }
+
+          break;
+
+        case 'destroy':
+          if (uploadedImageURL) {
+            URL.revokeObjectURL(uploadedImageURL);
+            uploadedImageURL = '';
+            $image.attr('src', originalImageURL);
+          }
+
+          break;
+      }
+   });
 });
 
