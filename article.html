@@ -52,81 +52,46 @@
         <button id="crop-btn" class="btn btn-primary mt-2" data-method="startCrop">Crop</button>
         <button id="save-crop-btn" class="btn btn-success mt-2" data-method="getCroppedCanvas">Save Clip</button>
       </div>
-      <div class="pages-bar">
-        <div class="tab-buttons">
-          <button>Pages</button>
-          <button>Clips</button>
+      <div class="article-sidebar">
+        <div class="article-sidebar__buttons">
+          <button id="pages-btn" class="article-sidebar__buttons--active">Pages</button>
+          <button id="clips-btn">Clips</button>
         </div>
-        <img src="img/page.png">
-        <img src="img/page.png">
-        <img src="img/page.png">
-        <img src="img/page.png">
-        <img src="img/page.png">
-        <img src="img/page.png">
-        <img src="img/page.png">
+        <div class="article-sidebar__pages-container">
+          <img onclick="shareClickHandler();" src="img/page.png">
+          <img src="img/page.png">
+          <img src="img/page.png">
+          <img src="img/page.png">
+          <img src="img/page.png">
+          <img src="img/page.png">
+          <img src="img/page.png">
+        </div>
+        <div class="article-sidebar__clips-container d-none">
+        </div>
       </div>
       <div id="main-article" class="main-article">
         <img id="photo" src="img/page.png">
       </div>
     </div><!-- /Content -->
 
-    <div class="docs-data">
-      <div class="input-group input-group-sm">
-        <span class="input-group-prepend">
-          <label class="input-group-text" for="dataX">X</label>
-        </span>
-        <input type="text" class="form-control" id="dataX" placeholder="x">
-        <span class="input-group-append">
-          <span class="input-group-text">px</span>
-        </span>
-      </div>
-      <div class="input-group input-group-sm">
-        <span class="input-group-prepend">
-          <label class="input-group-text" for="dataY">Y</label>
-        </span>
-        <input type="text" class="form-control" id="dataY" placeholder="y">
-        <span class="input-group-append">
-          <span class="input-group-text">px</span>
-        </span>
-      </div>
-      <div class="input-group input-group-sm">
-        <span class="input-group-prepend">
-          <label class="input-group-text" for="dataWidth">Width</label>
-        </span>
-        <input type="text" class="form-control" id="dataWidth" placeholder="width">
-        <span class="input-group-append">
-          <span class="input-group-text">px</span>
-        </span>
-      </div>
-      <div class="input-group input-group-sm">
-        <span class="input-group-prepend">
-          <label class="input-group-text" for="dataHeight">Height</label>
-        </span>
-        <input type="text" class="form-control" id="dataHeight" placeholder="height">
-        <span class="input-group-append">
-          <span class="input-group-text">px</span>
-        </span>
-      </div>
-      <div class="input-group input-group-sm">
-        <span class="input-group-prepend">
-          <label class="input-group-text" for="dataRotate">Rotate</label>
-        </span>
-        <input type="text" class="form-control" id="dataRotate" placeholder="rotate">
-        <span class="input-group-append">
-          <span class="input-group-text">deg</span>
-        </span>
-      </div>
-      <div class="input-group input-group-sm">
-        <span class="input-group-prepend">
-          <label class="input-group-text" for="dataScaleX">ScaleX</label>
-        </span>
-        <input type="text" class="form-control" id="dataScaleX" placeholder="scaleX">
-      </div>
-      <div class="input-group input-group-sm">
-        <span class="input-group-prepend">
-          <label class="input-group-text" for="dataScaleY">ScaleY</label>
-        </span>
-        <input type="text" class="form-control" id="dataScaleY" placeholder="scaleY">
+    <!-- Modal -->
+    <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Spread and Share</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Facebook, Twitter, Whatsapp
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -135,8 +100,14 @@
     <script type="text/javascript" src="js/vendor/fontawesome-all.min.js"></script>
     <script type="text/javascript" src="js/vendor/cropper.min.js"></script>
     <script type="text/javascript" src="js/vendor/jquery-cropper.min.js"></script>
+    <script type="text/javascript" src="js/vendor/axios.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
+    <script type="text/javascript">
+      function test () {
+        alert('something');
+      }
+    </script>
 
     <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
     <script>

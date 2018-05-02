@@ -1,38 +1,42 @@
+function shareClickHandler () {
+  console.log($(this).parent().parent().child('img'));
+}
+
 $(document).ready(function () {
 
   'use strict';
 
 	// capture the main article photo
 	const $image = $('#photo');
-	var $dataX = $('#dataX');
-  var $dataY = $('#dataY');
-  var $dataHeight = $('#dataHeight');
-  var $dataWidth = $('#dataWidth');
-  var $dataRotate = $('#dataRotate');
-  var $dataScaleX = $('#dataScaleX');
-  var $dataScaleY = $('#dataScaleY');
-  var options = {
-        viewMode: 2,
-        modal: true,
-        crop: function (e) {
-          $dataX.val(Math.round(e.detail.x));
-          $dataY.val(Math.round(e.detail.y));
-          $dataHeight.val(Math.round(e.detail.height));
-          $dataWidth.val(Math.round(e.detail.width));
-          $dataRotate.val(e.detail.rotate);
-          $dataScaleX.val(e.detail.scaleX);
-          $dataScaleY.val(e.detail.scaleY);
-        }
-      };
 
-	var originalImageURL = $image.attr('src');
-	var uploadedImageName = 'cropped.jpg';
-	var uploadedImageType = 'image/jpeg';
-	var uploadedImageURL;
+  // setup the options for the cropper
+  let options = {
+    viewMode: 2,
+    modal: true,
+    crop: function (e) {
+    }
+  };
 
+  let croppedImages = [];
 
+	let uploadedImageType = 'image/jpeg';
+
+  const appendCroppedCanvas = canvas => {
+    $('<div class="clip-container"></div>').prependTo('.article-sidebar__clips-container');
+
+    $('.clip-container').first().html(canvas); 
+    const overlay = '<div class="canvas-overlay"></div>';
+    const firstDiv = $('.clip-container').first();
+    $('<div class="canvas-overlay"><span class="download-icon"><i class="fas fa-download"></i></span><span onclick="shareClickHandler();" class="share-icon"><i class="fas fa-share-alt"></i></span></div>').appendTo(firstDiv);
+  }
+
+  function shareClickHandler () {
+    alert('something');
+  }
+
+  // listen for clicks on crop button
 	$('#crop-btn').on('click', () => {
-		//intilize the cropper
+		// then intilize the cropper
 	  $image.on({
 	    ready: function (e) {
 	      console.log(e.type);
@@ -57,16 +61,12 @@ $(document).ready(function () {
 
 	//listen for clicks on buttons
 	 $('.paginate').on('click', '[data-method]', function () {
-    var $this = $(this);
-    var data = $this.data();
-    var cropper = $image.data('cropper');
-    var cropped;
-    var $target;
-    var result;
-    console.log('target =', data.target);
-    console.log('method =', data.method);
-    console.log('data =', data);
-    console.log('this = ', $this);
+    let $this = $(this);
+    let data = $this.data();
+    let cropper = $image.data('cropper');
+    let cropped;
+    let $target;
+    let result;
 
 
     if(cropper && data.method) {
@@ -127,26 +127,49 @@ $(document).ready(function () {
 
         case 'getCroppedCanvas':
           if (result) {
-            // Bootstrap's Modal
-            $('.pages-bar').html(result);
-
-            if (!$download.hasClass('disabled')) {
-              download.download = uploadedImageName;
-              $download.attr('href', result.toDataURL(uploadedImageType));
+            croppedImages.push(result.toDataURL(uploadedImageType));
+            let croppedImageData = {
+              imgSrc: croppedImages[0],
             }
-          }
+            // axios.post('https://e-paper-d1cb3.firebaseio.com/croppedImages.json', croppedImageData)
+            //   .then(response => {
+                  
+            //   })
 
-          break;
+            appendCroppedCanvas(result);
 
-        case 'destroy':
-          if (uploadedImageURL) {
-            URL.revokeObjectURL(uploadedImageURL);
-            uploadedImageURL = '';
-            $image.attr('src', originalImageURL);
+            // axios.get('https://e-paper-d1cb3.firebaseio.com/croppedImages.json')
+            //     .then(response => {
+            //       let responseData = response.data;
+            //       console.log('responseData', responseData);
+            //     });
           }
 
           break;
       }
    });
+
+
+  $('#pages-btn').on('click', function() {
+    $(this).toggleClass('article-sidebar__buttons--active');
+    $(this).next().toggleClass('article-sidebar__buttons--active');
+    $('.article-sidebar__pages-container').removeClass('d-none');
+    $('.article-sidebar__clips-container').addClass('d-none');
+  });  
+
+  $('#clips-btn').on('click', function() {
+    $(this).toggleClass('article-sidebar__buttons--active');
+    $(this).prev().toggleClass('article-sidebar__buttons--active');
+    $('.article-sidebar__pages-container').addClass('d-none');
+    $('.article-sidebar__clips-container').removeClass('d-none');
+    // axios.get('https://e-paper-d1cb3.firebaseio.com/croppedImages.json')
+    //   .then(response => {
+    //     // let img = '<img src="' + response.data + '">';
+    //     console.log(response.data);
+    //     // $('.article-sidebar__clips-container').html(img);
+    //   })
+  });
+
+
 });
 
