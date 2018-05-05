@@ -1,13 +1,40 @@
-function shareClickHandler () {
-  console.log($(this).parent().parent().child('img'));
-}
+
+
+
 
 $(document).ready(function () {
 
   'use strict';
 
-	// capture the main article photo
-	const $image = $('#photo');
+  let $image = $('#photo');
+
+  const fetchPages = () => {
+    axios.get('https://e-paper.herokuapp.com/epaper/fetch')
+    .then(response => {
+      response.data.map(page => {
+        pageUrls.push(page.paper_location);
+      })
+      pageUrls = pageUrls.slice(2);
+      pageUrls.map(pageUrl => {
+        $(`<img class="article-sidebar__page-img" src="${pageUrl}"></img>`).appendTo('.article-sidebar__pages-container')
+      });
+      
+      $image.attr('src', pageUrls[0]); 
+      $('.article-sidebar__page-img').first().addClass('active');
+      $('.article-sidebar__page-img').on('click', (e) => {
+        showSelectedArticle(e);
+      });    
+    });
+  }
+
+  fetchPages();
+
+  const showSelectedArticle = event => {
+    let targetArticleSrc = $(event.target).attr('src');
+    $(event.target).siblings('img').removeClass('active');
+    $(event.target).addClass('active');
+    $image.attr('src', targetArticleSrc);
+  }
 
   // setup the options for the cropper
   let options = {
@@ -17,6 +44,7 @@ $(document).ready(function () {
     }
   };
 
+  let pageUrls = [];
   let croppedImages = [];
 
 	let uploadedImageType = 'image/jpeg';
@@ -27,11 +55,7 @@ $(document).ready(function () {
     $('.clip-container').first().html(canvas); 
     const overlay = '<div class="canvas-overlay"></div>';
     const firstDiv = $('.clip-container').first();
-    $('<div class="canvas-overlay"><span class="download-icon"><i class="fas fa-download"></i></span><span onclick="shareClickHandler();" class="share-icon"><i class="fas fa-share-alt"></i></span></div>').appendTo(firstDiv);
-  }
-
-  function shareClickHandler () {
-    alert('something');
+    $('<div class="canvas-overlay"><span class="download-icon"><i class="fas fa-download"></i></span><span class="share-icon"><i class="fas fa-share-alt"></i></span></div>').appendTo(firstDiv);
   }
 
   // listen for clicks on crop button
@@ -71,7 +95,6 @@ $(document).ready(function () {
 
     if(cropper && data.method) {
     	 data = $.extend({}, data);
-    	 console.log('newdata =', data);
 
     	 if (typeof data.target !== 'undefined') {
         $target = $(data.target);
@@ -79,9 +102,8 @@ $(document).ready(function () {
         if (typeof data.option === 'undefined') {
           try {
             data.option = JSON.parse($target.val());
-            console.log('data-option', data.option);
           } catch (e) {
-            console.log(e.message);
+
           }
         }
       }

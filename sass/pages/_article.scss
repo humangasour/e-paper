@@ -131,6 +131,18 @@
 		}
 
 		img {
+			cursor: pointer;
+			border: 1px solid;
+			transition: padding .3s ease;
+
+			&:hover {
+				padding: .3rem;
+			}
+
+			&.active {
+				padding: .3rem;
+			}
+
 			@include media-breakpoint-down(md) {
 	    	max-width: 150px;
     		margin: 0 0.5rem;
