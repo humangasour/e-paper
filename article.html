@@ -15,6 +15,7 @@
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/vendor/cropper.min.css">
+    <link rel="stylesheet" href="css/vendor/jquery.pan.css">
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
     <style type="text/css">
@@ -49,8 +50,10 @@
     <!-- Content -->
     <div class="container article-container">
       <div class="paginate text-center">
-        <button id="crop-btn" class="btn btn-primary mt-2" data-method="startCrop">Crop</button>
-        <button id="save-crop-btn" class="btn btn-success mt-2" data-method="getCroppedCanvas">Save Clip</button>
+        <div id="crop-btn" class="" data-method="startCrop">Crop</div>
+        <ul id="pagination-demo" class="pagination-sm"></ul>
+        <div id="save-crop-btn" class="" data-method="getCroppedCanvas">Save Clip</div>
+         
       </div>
       <div class="article-sidebar">
         <div class="article-sidebar__buttons">
@@ -65,7 +68,9 @@
         </div>
       </div>
       <div id="main-article" class="main-article">
-        <img id="photo" src="">
+        <a data-big="img/page.png" class="pan">
+          <img id="photo" src="">
+        </a>
       </div>
     </div><!-- /Content -->
 
@@ -96,6 +101,8 @@
     <script type="text/javascript" src="js/vendor/cropper.min.js"></script>
     <script type="text/javascript" src="js/vendor/jquery-cropper.min.js"></script>
     <script type="text/javascript" src="js/vendor/axios.min.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery.twbsPagination.min.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery.pan.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
     <script type="text/javascript">

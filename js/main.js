@@ -1,12 +1,9 @@
-
-
-
-
 $(document).ready(function () {
 
   'use strict';
 
   let $image = $('#photo');
+  let pageUrls = [];
 
   const fetchPages = () => {
     axios.get('https://e-paper.herokuapp.com/epaper/fetch')
@@ -15,24 +12,65 @@ $(document).ready(function () {
         pageUrls.push(page.paper_location);
       })
       pageUrls = pageUrls.slice(2);
+
       pageUrls.map(pageUrl => {
         $(`<img class="article-sidebar__page-img" src="${pageUrl}"></img>`).appendTo('.article-sidebar__pages-container')
       });
       
       $image.attr('src', pageUrls[0]); 
-      $('.article-sidebar__page-img').first().addClass('active');
+      $('.article-sidebar__page-img').first().addClass('active');  
+
+      $('#pagination-demo').twbsPagination({
+        totalPages: pageUrls.length,
+        visiblePages: 5,
+        onPageClick: function (event, page) {
+          let cropper = $image.data('cropper');
+          if(cropper) {
+            cropper.destroy();
+          }
+          const activePage = $('.article-sidebar__page-img').eq(page-1);
+          activePage.siblings().removeClass('active');
+          activePage.addClass('active');
+          $image.attr('src', activePage.attr('src'));
+        }
+      })
+
       $('.article-sidebar__page-img').on('click', (e) => {
         showSelectedArticle(e);
-      });    
+      });
+
+      $(".pan").pan();
+ 
     });
   }
 
   fetchPages();
 
   const showSelectedArticle = event => {
+    let cropper = $image.data('cropper');
+    if(cropper) {
+      cropper.destroy();
+    }
+    
     let targetArticleSrc = $(event.target).attr('src');
     $(event.target).siblings('img').removeClass('active');
     $(event.target).addClass('active');
+    $('#pagination-demo').twbsPagination('destroy');
+    $('#pagination-demo').twbsPagination({
+        totalPages: pageUrls.length,
+        visiblePages: 5,
+        startPage: $('.article-sidebar__page-img').index(event.target) + 1,
+        onPageClick: function (event, page) {
+          let cropper = $image.data('cropper');
+          if(cropper) {
+            cropper.destroy();
+          }
+          const activePage = $('.article-sidebar__page-img').eq(page-1);
+          activePage.siblings().removeClass('active');
+          activePage.addClass('active');
+          $image.attr('src', activePage.attr('src'));
+        }
+      })
     $image.attr('src', targetArticleSrc);
   }
 
@@ -44,7 +82,7 @@ $(document).ready(function () {
     }
   };
 
-  let pageUrls = [];
+  
   let croppedImages = [];
 
 	let uploadedImageType = 'image/jpeg';
@@ -91,7 +129,6 @@ $(document).ready(function () {
     let cropped;
     let $target;
     let result;
-
 
     if(cropper && data.method) {
     	 data = $.extend({}, data);
