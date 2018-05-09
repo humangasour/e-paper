@@ -4,6 +4,7 @@ $(document).ready(function () {
 
   let $image = $('#photo');
   let pageUrls = [];
+  let croppedImages = [];
 
   const fetchPages = () => {
     axios.get('https://e-paper.herokuapp.com/epaper/fetch')
@@ -39,7 +40,7 @@ $(document).ready(function () {
         showSelectedArticle(e);
       });
 
-      $(".pan").pan();
+      // $(".pan").pan();
  
     });
   }
@@ -47,10 +48,6 @@ $(document).ready(function () {
   fetchPages();
 
   const showSelectedArticle = event => {
-    let cropper = $image.data('cropper');
-    if(cropper) {
-      cropper.destroy();
-    }
     
     let targetArticleSrc = $(event.target).attr('src');
     $(event.target).siblings('img').removeClass('active');
@@ -81,9 +78,6 @@ $(document).ready(function () {
     crop: function (e) {
     }
   };
-
-  
-  let croppedImages = [];
 
 	let uploadedImageType = 'image/jpeg';
 
