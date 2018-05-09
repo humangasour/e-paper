@@ -13,6 +13,9 @@ $(document).ready(function () {
     }
   };
 
+  var element = document.querySelector( '#photo' );
+  Intense( element );
+
   const fetchPages = () => {
     axios.get('https://e-paper.herokuapp.com/epaper/fetch')
     .then(response => {
@@ -38,7 +41,7 @@ $(document).ready(function () {
           $image.attr('src', activePage.attr('src'));
           let cropper = $image.data('cropper');
           if(cropper) {
-            cropper.destroy();
+            $image.cropper('destroy');
           }
         }
       })
@@ -161,11 +164,6 @@ $(document).ready(function () {
 
             data.option.fillColor = '#fff';
           }
-
-          break;
-
-          case 'destroyCrop': 
-            cropper.destroy();
 
           break;
       }
