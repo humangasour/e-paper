@@ -5,6 +5,13 @@ $(document).ready(function () {
   let $image = $('#photo');
   let pageUrls = [];
   let croppedImages = [];
+  // setup the options for the cropper
+  let options = {
+    viewMode: 2,
+    modal: true,
+    crop: function (e) {
+    }
+  };
 
   const fetchPages = () => {
     axios.get('https://e-paper.herokuapp.com/epaper/fetch')
@@ -25,14 +32,14 @@ $(document).ready(function () {
         totalPages: pageUrls.length,
         visiblePages: 5,
         onPageClick: function (event, page) {
-          let cropper = $image.data('cropper');
-          if(cropper) {
-            cropper.destroy();
-          }
           const activePage = $('.article-sidebar__page-img').eq(page-1);
           activePage.siblings().removeClass('active');
           activePage.addClass('active');
           $image.attr('src', activePage.attr('src'));
+          let cropper = $image.data('cropper');
+          if(cropper) {
+            cropper.destroy();
+          }
         }
       })
 
@@ -48,7 +55,6 @@ $(document).ready(function () {
   fetchPages();
 
   const showSelectedArticle = event => {
-    
     let targetArticleSrc = $(event.target).attr('src');
     $(event.target).siblings('img').removeClass('active');
     $(event.target).addClass('active');
@@ -58,26 +64,24 @@ $(document).ready(function () {
         visiblePages: 5,
         startPage: $('.article-sidebar__page-img').index(event.target) + 1,
         onPageClick: function (event, page) {
-          let cropper = $image.data('cropper');
-          if(cropper) {
-            cropper.destroy();
-          }
+          
           const activePage = $('.article-sidebar__page-img').eq(page-1);
           activePage.siblings().removeClass('active');
           activePage.addClass('active');
           $image.attr('src', activePage.attr('src'));
+          let cropper = $image.data('cropper');
+          if(cropper) {
+            $image.cropper('destroy');
+          }
         }
       })
     $image.attr('src', targetArticleSrc);
-  }
-
-  // setup the options for the cropper
-  let options = {
-    viewMode: 2,
-    modal: true,
-    crop: function (e) {
+    let cropper = $image.data('cropper');
+    if(cropper) {
+      $image.cropper('destroy');
     }
-  };
+    console.log($('#photo'));
+  }
 
 	let uploadedImageType = 'image/jpeg';
 
@@ -92,10 +96,13 @@ $(document).ready(function () {
 
   // listen for clicks on crop button
 	$('#crop-btn').on('click', () => {
+    console.log('clicked');
+    console.log($('#photo'));
 		// then intilize the cropper
-	  $image.on({
+	  $('#photo').on({
 	    ready: function (e) {
 	      console.log(e.type);
+        console.log('getting ready');
 	    },
 	    cropstart: function (e) {
 	      console.log(e.type, e.detail.action);
@@ -111,7 +118,10 @@ $(document).ready(function () {
 	    },
 	    zoom: function (e) {
 	      console.log(e.type, e.detail.ratio);
-	    }
+	    },
+      destroy: function (e) {
+        console.log(e.type);
+      }
 	  }).cropper(options);
 	}); 
 
@@ -142,12 +152,6 @@ $(document).ready(function () {
       cropped = cropper.cropped;
 
       switch (data.method) {
-        case 'rotate':
-          if (cropped && options.viewMode > 0) {
-            $image.cropper('clear');
-          }
-
-          break;
 
         case 'getCroppedCanvas':
           if (uploadedImageType === 'image/jpeg') {
@@ -157,6 +161,11 @@ $(document).ready(function () {
 
             data.option.fillColor = '#fff';
           }
+
+          break;
+
+          case 'destroyCrop': 
+            cropper.destroy();
 
           break;
       }
@@ -184,18 +193,7 @@ $(document).ready(function () {
             let croppedImageData = {
               imgSrc: croppedImages[0],
             }
-            // axios.post('https://e-paper-d1cb3.firebaseio.com/croppedImages.json', croppedImageData)
-            //   .then(response => {
-                  
-            //   })
-
             appendCroppedCanvas(result);
-
-            // axios.get('https://e-paper-d1cb3.firebaseio.com/croppedImages.json')
-            //     .then(response => {
-            //       let responseData = response.data;
-            //       console.log('responseData', responseData);
-            //     });
           }
 
           break;
