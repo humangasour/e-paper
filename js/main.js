@@ -2,9 +2,14 @@ $(document).ready(function () {
 
   'use strict';
 
+  const articleOverlay = document.querySelector( '.main-article__overlay' );
+  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const date = new Date();
   let $image = $('#photo');
   let pageUrls = [];
   let croppedImages = [];
+  let uploadedImageType = 'image/jpeg';
   // setup the options for the cropper
   let options = {
     viewMode: 2,
@@ -13,8 +18,23 @@ $(document).ready(function () {
     }
   };
 
-  var element = document.querySelector( '#photo' );
-  Intense( element );
+  
+  let curDate = days[date.getDay()] + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ', ' + date.getFullYear();
+  $('.datepicker').attr('value', curDate);
+
+  $('.datepicker').on('click', function () {
+    $('.datepicker').pickadate({
+      format: 'dddd, dd mmm, yyyy',
+      formatSubmit: 'yyyy/mm/dd',
+      hiddenPrefix: 'prefix__',
+      hiddenSuffix: '__suffix',
+      closeOnSelect: true,
+      closeOnClear: true,
+      clear: '',
+      max: new Date(date.getFullYear(), date.getMonth(), date.getDate())
+    });
+  })
+
 
   const fetchPages = () => {
     axios.get('https://e-paper.herokuapp.com/epaper/fetch')
@@ -43,15 +63,20 @@ $(document).ready(function () {
           if(cropper) {
             $image.cropper('destroy');
           }
+          articleOverlay.setAttribute('data-image', $image.attr('src'));      
+          Intense( articleOverlay );
         }
       })
 
       $('.article-sidebar__page-img').on('click', (e) => {
         showSelectedArticle(e);
       });
+      
+      // code that turns the image into humangasour
+      articleOverlay.setAttribute('data-image', $image.attr('src'));      
+      Intense( articleOverlay );
 
-      // $(".pan").pan();
- 
+
     });
   }
 
@@ -76,6 +101,8 @@ $(document).ready(function () {
           if(cropper) {
             $image.cropper('destroy');
           }
+          articleOverlay.setAttribute('data-image', $image.attr('src'));      
+          Intense( articleOverlay );
         }
       })
     $image.attr('src', targetArticleSrc);
@@ -83,10 +110,9 @@ $(document).ready(function () {
     if(cropper) {
       $image.cropper('destroy');
     }
-    console.log($('#photo'));
+    articleOverlay.setAttribute('data-image', $image.attr('src'));      
+    Intense( articleOverlay );
   }
-
-	let uploadedImageType = 'image/jpeg';
 
   const appendCroppedCanvas = canvas => {
     $('<div class="clip-container"></div>').prependTo('.article-sidebar__clips-container');
@@ -99,8 +125,6 @@ $(document).ready(function () {
 
   // listen for clicks on crop button
 	$('#crop-btn').on('click', () => {
-    console.log('clicked');
-    console.log($('#photo'));
 		// then intilize the cropper
 	  $('#photo').on({
 	    ready: function (e) {
@@ -137,7 +161,7 @@ $(document).ready(function () {
     let $target;
     let result;
 
-    if(cropper && data.method) {
+    if(cropper && data.method) {  
     	 data = $.extend({}, data);
 
     	 if (typeof data.target !== 'undefined') {

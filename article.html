@@ -15,7 +15,8 @@
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/vendor/cropper.min.css">
-    <link rel="stylesheet" href="css/vendor/jquery.pan.css">
+    <link rel="stylesheet" href="css/vendor/classic.css">
+    <link rel="stylesheet" href="css/vendor/classic.date.css">
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
     <style type="text/css">
@@ -42,7 +43,10 @@
           <div class="navbar-nav">
             <a class="nav-item nav-link active" href="index.html">Home <span class="sr-only">(current)</span></a>       
           </div>
-          <a class="nav-item nav-link" href="#">Mon, 2nd Apr, 2018</a>
+          <div class="datepicker-wrapper">
+            <input class="datepicker" type="text" name="">
+            <span class="down-arrow"><i class="fas fa-sort-down"></i></span>
+          </div>
         </div>
       </nav> 
     </div><!-- /Navbar -->
@@ -69,6 +73,7 @@
       </div>
       <div id="main-article" class="main-article">
           <img id="photo" src="">
+          <div class="main-article__overlay"><span><i class="fas fa-search-plus"></i></span></div>
       </div>
     </div><!-- /Content -->
 
@@ -94,13 +99,14 @@
     </div>
 
     <script src="js/vendor/modernizr-3.5.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="js/vendor/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/vendor/fontawesome-all.min.js"></script>
     <script type="text/javascript" src="js/vendor/cropper.min.js"></script>
     <script type="text/javascript" src="js/vendor/jquery-cropper.min.js"></script>
     <script type="text/javascript" src="js/vendor/axios.min.js"></script>
     <script type="text/javascript" src="js/vendor/jquery.twbsPagination.min.js"></script>
-    <script type="text/javascript" src="js/vendor/jquery.pan.js"></script>
+    <script type="text/javascript" src="js/vendor/picker.js"></script>
+    <script type="text/javascript" src="js/vendor/picker.date.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/vendor/intense.min.js"></script>
     <script src="js/main.js"></script>
