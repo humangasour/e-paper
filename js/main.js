@@ -123,37 +123,57 @@ $(document).ready(function () {
     $('<div class="canvas-overlay"><span class="download-icon"><i class="fas fa-download"></i></span><span class="share-icon"><i class="fas fa-share-alt"></i></span></div>').appendTo(firstDiv);
   }
 
+  const showPopover = () => {
+    $('.cropper-crop-box').popover({
+      content: '<p class="popover-options"><strong class="save-btn">SAVE</strong> <span>|</span> <strong class="cancel-btn" style="color: rgba(243, 22, 43, 0.81);">CANCEL</strong></p>',
+      placement: 'top',
+      html: true,
+    });
+    $('.cropper-crop-box').popover('show');
+    $('.cancel-btn').on('click', function() {
+      $('.cropper-crop-box').popover('hide');
+      $('#photo').cropper('destroy');
+    });
+
+  }
+
+
+
   // listen for clicks on crop button
-	$('#crop-btn').on('click', () => {
-		// then intilize the cropper
-	  $('#photo').on({
-	    ready: function (e) {
-	      console.log(e.type);
-        console.log('getting ready');
-	    },
-	    cropstart: function (e) {
-	      console.log(e.type, e.detail.action);
-	    },
-	    cropmove: function (e) {
-	      console.log(e.type, e.detail.action);
-	    },
-	    cropend: function (e) {
-	      console.log(e.type, e.detail.action);
-	    },
-	    crop: function (e) {
-	      console.log(e.type);
-	    },
-	    zoom: function (e) {
-	      console.log(e.type, e.detail.ratio);
-	    },
+  $('#crop-btn').on('click', () => {
+    // then intilize the cropper
+    $('#photo').on({
+      ready: function (e) {
+        console.log('crop ready');
+        showPopover();
+      },
+      cropstart: function (e) {
+        console.log('crop started');
+        showPopover();
+      },
+      cropmove: function (e) {
+        console.log('crop moving');
+        showPopover();
+      },
+      cropend: function (e) {
+        console.log('crop end');
+        showPopover();
+      },
+      crop: function (e) {
+        console.log(e.type);
+      },
+      zoom: function (e) {
+        console.log(e.type, e.detail.ratio);
+      },
       destroy: function (e) {
         console.log(e.type);
       }
-	  }).cropper(options);
-	}); 
+    }).cropper(options);    
+  }); 
 
-	//listen for clicks on buttons
-	 $('.paginate').on('click', '[data-method]', function () {
+
+  //listen for clicks on buttons
+   $('.paginate').on('click', '[data-method]', function () {
     let $this = $(this);
     let data = $this.data();
     let cropper = $image.data('cropper');
@@ -162,9 +182,9 @@ $(document).ready(function () {
     let result;
 
     if(cropper && data.method) {  
-    	 data = $.extend({}, data);
+       data = $.extend({}, data);
 
-    	 if (typeof data.target !== 'undefined') {
+       if (typeof data.target !== 'undefined') {
         $target = $(data.target);
 
         if (typeof data.option === 'undefined') {
@@ -235,14 +255,7 @@ $(document).ready(function () {
     $(this).prev().toggleClass('article-sidebar__buttons--active');
     $('.article-sidebar__pages-container').addClass('d-none');
     $('.article-sidebar__clips-container').removeClass('d-none');
-    // axios.get('https://e-paper-d1cb3.firebaseio.com/croppedImages.json')
-    //   .then(response => {
-    //     // let img = '<img src="' + response.data + '">';
-    //     console.log(response.data);
-    //     // $('.article-sidebar__clips-container').html(img);
-    //   })
   });
 
 
 });
-
