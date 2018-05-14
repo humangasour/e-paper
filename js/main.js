@@ -125,7 +125,7 @@ $(document).ready(function () {
 
   const showPopover = () => {
     $('.cropper-crop-box').popover({
-      content: '<p class="popover-options"><strong class="save-btn">SAVE</strong> <span>|</span> <strong class="cancel-btn" style="color: rgba(243, 22, 43, 0.81);">CANCEL</strong></p>',
+      content: '<p class="popover-options"><strong class="save-btn" data-toggle="modal" data-target="#saveAndShareModal">SAVE</strong> <span>|</span> <strong class="cancel-btn" style="color: rgba(243, 22, 43, 0.81);">CANCEL</strong></p>',
       placement: 'top',
       html: true,
     });
