@@ -1,0 +1,25 @@
+.datepicker-wrapper {
+	position: relative;
+
+	input {
+		border: none;
+    color: #f54253;
+    font-family: Raleway;
+    width: 290px;
+    cursor: pointer;
+	}
+
+	.picker {
+		right: 0;
+		width: 156%;
+		top: 38px;
+	}
+
+	span.down-arrow {
+		position: absolute;
+		right: 15px;
+		top: -13px;
+		color: #f54253;
+		font-size: 2rem;
+	}
+}

@@ -1,0 +1,14 @@
+p.popover-options {
+  margin-bottom: 0;
+  display: flex;
+  width: 113px;
+  justify-content: space-between;
+
+  strong {
+  	cursor: pointer;
+
+  	&:hover {
+  		text-decoration: underline;
+  	}
+  }
+}

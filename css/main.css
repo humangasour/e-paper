@@ -597,6 +597,22 @@ body {
   width: 1px;
 }
 
+/* line 1, ../sass/components/_modal.scss */
+#saveAndShareModal {
+  z-index: 101201201122;
+}
+/* line 3, ../sass/components/_modal.scss */
+#saveAndShareModal .cropped-img {
+  width: 100%;
+}
+/* line 5, ../sass/components/_modal.scss */
+#saveAndShareModal .cropped-img canvas {
+  border: 1px solid;
+  padding: 0.3rem;
+  width: 100%;
+  max-height: 300px;
+}
+
 /* line 5, ../sass/pages/_home.scss */
 .article-grid {
   display: grid;
@@ -683,11 +699,11 @@ body {
   transition: transform .5s ease-in,  opacity .3s ease-in;
 }
 
-/* line 4, ../sass/pages/_article.scss */
+/* line 1, ../sass/components/_datepicker.scss */
 .datepicker-wrapper {
   position: relative;
 }
-/* line 7, ../sass/pages/_article.scss */
+/* line 4, ../sass/components/_datepicker.scss */
 .datepicker-wrapper input {
   border: none;
   color: #f54253;
@@ -695,13 +711,13 @@ body {
   width: 290px;
   cursor: pointer;
 }
-/* line 15, ../sass/pages/_article.scss */
+/* line 12, ../sass/components/_datepicker.scss */
 .datepicker-wrapper .picker {
   right: 0;
   width: 156%;
   top: 38px;
 }
-/* line 21, ../sass/pages/_article.scss */
+/* line 18, ../sass/components/_datepicker.scss */
 .datepicker-wrapper span.down-arrow {
   position: absolute;
   right: 15px;
@@ -710,23 +726,23 @@ body {
   font-size: 2rem;
 }
 
-/* line 31, ../sass/pages/_article.scss */
+/* line 1, ../sass/components/_popover.scss */
 p.popover-options {
   margin-bottom: 0;
   display: flex;
   width: 113px;
   justify-content: space-between;
 }
-/* line 37, ../sass/pages/_article.scss */
+/* line 7, ../sass/components/_popover.scss */
 p.popover-options strong {
   cursor: pointer;
 }
-/* line 40, ../sass/pages/_article.scss */
+/* line 10, ../sass/components/_popover.scss */
 p.popover-options strong:hover {
   text-decoration: underline;
 }
 
-/* line 47, ../sass/pages/_article.scss */
+/* line 8, ../sass/pages/_article.scss */
 .article-container {
   display: grid;
   grid-gap: 10px;
@@ -734,25 +750,30 @@ p.popover-options strong:hover {
   grid-template-rows: repeat(18, 70px);
 }
 @media (max-width: 767.99px) {
-  /* line 47, ../sass/pages/_article.scss */
+  /* line 8, ../sass/pages/_article.scss */
   .article-container {
     grid-template-rows: repeat(12, 70px);
   }
 }
-/* line 57, ../sass/pages/_article.scss */
+/* line 18, ../sass/pages/_article.scss */
 .article-container div {
   border: 1px solid;
 }
-/* line 61, ../sass/pages/_article.scss */
+/* line 22, ../sass/pages/_article.scss */
 .article-container p {
   margin-top: 1rem;
   text-align: center;
 }
-/* line 66, ../sass/pages/_article.scss */
+/* line 27, ../sass/pages/_article.scss */
+.article-container #pagination-demo {
+  display: inline-flex;
+  margin-bottom: 0;
+}
+/* line 32, ../sass/pages/_article.scss */
 .article-container .cropper-container {
   z-index: 1000;
 }
-/* line 70, ../sass/pages/_article.scss */
+/* line 36, ../sass/pages/_article.scss */
 .article-container .paginate {
   grid-column: 1/13;
   display: flex;
@@ -760,34 +781,86 @@ p.popover-options strong:hover {
   align-items: center;
 }
 @media (min-width: 768px) {
-  /* line 70, ../sass/pages/_article.scss */
+  /* line 36, ../sass/pages/_article.scss */
   .article-container .paginate {
     grid-column: 4/-1;
   }
 }
-/* line 80, ../sass/pages/_article.scss */
+/* line 46, ../sass/pages/_article.scss */
 .article-container .paginate div {
   border: none;
   cursor: pointer;
   transition: color .2s ease;
 }
-/* line 85, ../sass/pages/_article.scss */
+/* line 51, ../sass/pages/_article.scss */
 .article-container .paginate div:hover {
   color: #f54253;
 }
-/* line 91, ../sass/pages/_article.scss */
+/* line 1, ../sass/components/_main-article.scss */
+.article-container .main-article {
+  text-align: center;
+  grid-column: 1/-1;
+  grid-row: 2/16;
+  position: relative;
+}
+@media (max-width: 767.99px) {
+  /* line 1, ../sass/components/_main-article.scss */
+  .article-container .main-article {
+    grid-row: 2/9;
+  }
+}
+@media (min-width: 768px) {
+  /* line 1, ../sass/components/_main-article.scss */
+  .article-container .main-article {
+    grid-column: 4/-1;
+    grid-row: 2/-1;
+  }
+}
+/* line 16, ../sass/components/_main-article.scss */
+.article-container .main-article img {
+  width: 100%;
+  max-width: 100%;
+}
+/* line 21, ../sass/components/_main-article.scss */
+.article-container .main-article__overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .34s ease;
+  background: rgba(0, 0, 0, 0.6);
+}
+/* line 31, ../sass/components/_main-article.scss */
+.article-container .main-article__overlay span {
+  font-size: 6rem;
+  color: #ffffffd9;
+  display: inline-block;
+  margin-top: 54%;
+  transition: transform .3s ease;
+}
+/* line 37, ../sass/components/_main-article.scss */
+.article-container .main-article__overlay span:hover {
+  transform: scale(1.2);
+}
+/* line 44, ../sass/components/_main-article.scss */
+.article-container .main-article:hover .main-article__overlay {
+  opacity: 1;
+}
+/* line 1, ../sass/layout/_sidebar.scss */
 .article-container .article-sidebar {
   grid-column: 1/-1;
   grid-row: 16/-1;
 }
 @media (max-width: 767.99px) {
-  /* line 91, ../sass/pages/_article.scss */
+  /* line 1, ../sass/layout/_sidebar.scss */
   .article-container .article-sidebar {
     grid-row: 9/12;
   }
 }
 @media (max-width: 991.99px) {
-  /* line 91, ../sass/pages/_article.scss */
+  /* line 1, ../sass/layout/_sidebar.scss */
   .article-container .article-sidebar {
     display: flex;
     flex-direction: row;
@@ -795,7 +868,7 @@ p.popover-options strong:hover {
   }
 }
 @media (min-width: 768px) {
-  /* line 91, ../sass/pages/_article.scss */
+  /* line 1, ../sass/layout/_sidebar.scss */
   .article-container .article-sidebar {
     text-align: center;
     overflow-y: scroll;
@@ -803,7 +876,7 @@ p.popover-options strong:hover {
     grid-row: 1/-1;
   }
 }
-/* line 112, ../sass/pages/_article.scss */
+/* line 22, ../sass/layout/_sidebar.scss */
 .article-container .article-sidebar .clip-container {
   width: 80%;
   height: 250px;
@@ -812,16 +885,16 @@ p.popover-options strong:hover {
   margin-bottom: 1.5rem;
   position: relative;
 }
-/* line 120, ../sass/pages/_article.scss */
+/* line 30, ../sass/layout/_sidebar.scss */
 .article-container .article-sidebar .clip-container canvas {
   width: 100%;
   height: 100%;
 }
-/* line 126, ../sass/pages/_article.scss */
+/* line 36, ../sass/layout/_sidebar.scss */
 .article-container .article-sidebar .clip-container:hover .canvas-overlay {
   opacity: 1;
 }
-/* line 131, ../sass/pages/_article.scss */
+/* line 41, ../sass/layout/_sidebar.scss */
 .article-container .article-sidebar .clip-container .canvas-overlay {
   position: absolute;
   top: 0;
@@ -832,7 +905,7 @@ p.popover-options strong:hover {
   opacity: 0;
   padding-top: 4rem;
 }
-/* line 141, ../sass/pages/_article.scss */
+/* line 51, ../sass/layout/_sidebar.scss */
 .article-container .article-sidebar .clip-container .canvas-overlay span {
   font-size: 2.2rem;
   color: white;
@@ -840,15 +913,15 @@ p.popover-options strong:hover {
   cursor: pointer;
   transition: color .2s ease;
 }
-/* line 147, ../sass/pages/_article.scss */
+/* line 57, ../sass/layout/_sidebar.scss */
 .article-container .article-sidebar .clip-container .canvas-overlay span:hover {
   color: #f54253;
 }
-/* line 150, ../sass/pages/_article.scss */
+/* line 60, ../sass/layout/_sidebar.scss */
 .article-container .article-sidebar .clip-container .canvas-overlay span:first-of-type {
   margin-bottom: 1rem;
 }
-/* line 157, ../sass/pages/_article.scss */
+/* line 67, ../sass/layout/_sidebar.scss */
 .article-container .article-sidebar__buttons {
   border: none;
   border-bottom: 1px solid;
@@ -861,7 +934,7 @@ p.popover-options strong:hover {
   right: 0;
   z-index: 100;
 }
-/* line 169, ../sass/pages/_article.scss */
+/* line 79, ../sass/layout/_sidebar.scss */
 .article-container .article-sidebar__buttons button {
   width: 49%;
   background: white;
@@ -872,102 +945,45 @@ p.popover-options strong:hover {
   cursor: pointer;
   transition: all .3s ease;
 }
-/* line 180, ../sass/pages/_article.scss */
+/* line 90, ../sass/layout/_sidebar.scss */
 .article-container .article-sidebar__buttons--active {
   background: rgba(243, 22, 43, 0.81) !important;
   color: white;
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
 }
-/* line 187, ../sass/pages/_article.scss */
+/* line 97, ../sass/layout/_sidebar.scss */
 .article-container .article-sidebar__pages-container, .article-container .article-sidebar__clips-container {
   border: none;
 }
-/* line 192, ../sass/pages/_article.scss */
+/* line 102, ../sass/layout/_sidebar.scss */
 .article-container .article-sidebar img {
   cursor: pointer;
   border: 1px solid;
   transition: padding .3s ease;
 }
-/* line 197, ../sass/pages/_article.scss */
+/* line 107, ../sass/layout/_sidebar.scss */
 .article-container .article-sidebar img:hover {
   padding: .3rem;
 }
-/* line 201, ../sass/pages/_article.scss */
+/* line 111, ../sass/layout/_sidebar.scss */
 .article-container .article-sidebar img.active {
   padding: .3rem;
 }
 @media (max-width: 991.99px) {
-  /* line 192, ../sass/pages/_article.scss */
+  /* line 102, ../sass/layout/_sidebar.scss */
   .article-container .article-sidebar img {
     max-width: 150px;
     margin: 0 0.5rem;
   }
 }
 @media (min-width: 768px) {
-  /* line 192, ../sass/pages/_article.scss */
+  /* line 102, ../sass/layout/_sidebar.scss */
   .article-container .article-sidebar img {
     width: 90%;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 1rem;
   }
-}
-/* line 219, ../sass/pages/_article.scss */
-.article-container .main-article {
-  text-align: center;
-  grid-column: 1/-1;
-  grid-row: 2/16;
-  position: relative;
-}
-@media (max-width: 767.99px) {
-  /* line 219, ../sass/pages/_article.scss */
-  .article-container .main-article {
-    grid-row: 2/9;
-  }
-}
-@media (min-width: 768px) {
-  /* line 219, ../sass/pages/_article.scss */
-  .article-container .main-article {
-    grid-column: 4/-1;
-    grid-row: 2/-1;
-  }
-}
-/* line 234, ../sass/pages/_article.scss */
-.article-container .main-article img {
-  width: 100%;
-  max-width: 100%;
-}
-/* line 239, ../sass/pages/_article.scss */
-.article-container .main-article__overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity .34s ease;
-  background: rgba(0, 0, 0, 0.6);
-}
-/* line 249, ../sass/pages/_article.scss */
-.article-container .main-article__overlay span {
-  font-size: 6rem;
-  color: #ffffffd9;
-  display: inline-block;
-  margin-top: 54%;
-  transition: transform .3s ease;
-}
-/* line 255, ../sass/pages/_article.scss */
-.article-container .main-article__overlay span:hover {
-  transform: scale(1.2);
-}
-/* line 262, ../sass/pages/_article.scss */
-.article-container .main-article:hover .main-article__overlay {
-  opacity: 1;
-}
-/* line 268, ../sass/pages/_article.scss */
-.article-container #pagination-demo {
-  display: inline-flex;
-  margin-bottom: 0;
 }
 
 /* line 6, ../sass/themes/_default.scss */

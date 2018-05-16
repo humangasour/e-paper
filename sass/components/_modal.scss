@@ -1,0 +1,12 @@
+#saveAndShareModal {
+	z-index: 101201201122;
+	.cropped-img {
+		width: 100%;
+		canvas {
+			border: 1px solid;
+			padding: 0.3rem;
+			width: 100%;
+			max-height: 300px;
+		}
+	}
+}

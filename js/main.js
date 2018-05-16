@@ -61,6 +61,7 @@ $(document).ready(function () {
           $image.attr('src', activePage.attr('src'));
           let cropper = $image.data('cropper');
           if(cropper) {
+            $('.cropper-crop-box').popover('hide');
             $image.cropper('destroy');
           }
           articleOverlay.setAttribute('data-image', $image.attr('src'));      
@@ -99,6 +100,7 @@ $(document).ready(function () {
           $image.attr('src', activePage.attr('src'));
           let cropper = $image.data('cropper');
           if(cropper) {
+            $('.cropper-crop-box').popover('hide');
             $image.cropper('destroy');
           }
           articleOverlay.setAttribute('data-image', $image.attr('src'));      
@@ -108,6 +110,7 @@ $(document).ready(function () {
     $image.attr('src', targetArticleSrc);
     let cropper = $image.data('cropper');
     if(cropper) {
+      $('.cropper-crop-box').popover('hide');
       $image.cropper('destroy');
     }
     articleOverlay.setAttribute('data-image', $image.attr('src'));      
@@ -125,19 +128,26 @@ $(document).ready(function () {
 
   const showPopover = () => {
     $('.cropper-crop-box').popover({
-      content: '<p class="popover-options"><strong class="save-btn" data-toggle="modal" data-target="#saveAndShareModal">SAVE</strong> <span>|</span> <strong class="cancel-btn" style="color: rgba(243, 22, 43, 0.81);">CANCEL</strong></p>',
+      content: '<p class="popover-options"><strong class="save-btn" data-method="showCanvasInModal">SAVE</strong> <span>|</span> <strong class="cancel-btn" style="color: rgba(243, 22, 43, 0.81);">CANCEL</strong></p>',
       placement: 'top',
       html: true,
     });
     $('.cropper-crop-box').popover('show');
+    // $('.save-btn').on('click', () => {
+    //   let $this = $(this);
+    //   let data = $this.data();
+    //   let cropper = $image.data('cropper');
+
+    //   let result = $image.cropper(data.method, data.option, data.secondOption);
+    //   console.log('result', result);
+    //   $('#saveAndShareModal').modal('show');
+    //   $('#saveAndShareModal .cropped-img').html(result);
+    // })
     $('.cancel-btn').on('click', function() {
       $('.cropper-crop-box').popover('hide');
       $('#photo').cropper('destroy');
     });
-
   }
-
-
 
   // listen for clicks on crop button
   $('#crop-btn').on('click', () => {
@@ -172,8 +182,8 @@ $(document).ready(function () {
   }); 
 
 
-  //listen for clicks on buttons
-   $('.paginate').on('click', '[data-method]', function () {
+  //listen for clicks on top bar
+   $(document).on('click', '[data-method]', function () {
     let $this = $(this);
     let data = $this.data();
     let cropper = $image.data('cropper');
@@ -211,23 +221,11 @@ $(document).ready(function () {
 
           break;
       }
-
-
-      result = $image.cropper(data.method, data.option, data.secondOption);
     }
 
+    result = $image.cropper(data.method, data.option, data.secondOption);
+
     switch (data.method) {
-        case 'rotate':
-          if (cropped && options.viewMode > 0) {
-            $image.cropper('crop');
-          }
-
-          break;
-
-        case 'scaleX':
-        case 'scaleY':
-          $(this).data('option', -data.option);
-          break;
 
         case 'getCroppedCanvas':
           if (result) {
@@ -236,6 +234,15 @@ $(document).ready(function () {
               imgSrc: croppedImages[0],
             }
             appendCroppedCanvas(result);
+          }
+
+          break;
+
+        case 'showCanvasInModal':
+          if (result) {
+            $('#saveAndShareModal').modal('show');
+            let imageData = $image.cropper('getCroppedCanvas');
+            $('.cropped-img').html(imageData);
           }
 
           break;
